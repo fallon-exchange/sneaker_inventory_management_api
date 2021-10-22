@@ -1,3 +1,5 @@
+package com.fallon.sneakerapp;
+
 import java.sql.Connection;
 
 public class Driver {
