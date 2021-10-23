@@ -13,10 +13,14 @@ public class UserServices {
         this.userDao = userDao;
     }
 
-    public User registerUser(User newUser) throws SQLException {
-
+    public User registerUser(User newUser) throws Exception {
+        if(userDao.selectUsername(newUser)){
+            throw new Exception("Username taken");
+        }
 
         User registeredUser = userDao.save(newUser);
         return registeredUser;
     }
+
+
 }

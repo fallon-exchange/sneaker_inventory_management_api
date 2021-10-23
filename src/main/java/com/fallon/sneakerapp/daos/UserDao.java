@@ -31,4 +31,18 @@ public class UserDao {
 
         return newUser;
     }
+
+    public boolean selectUsername(User user) throws SQLException {
+        String sqlSelectUser = "select * from users where username = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sqlSelectUser);
+        pstmt.setString(1,user.getUsername());
+
+        ResultSet resultSet = pstmt.executeQuery();
+
+        if(resultSet.next()){
+            return true;
+        }
+
+        return false;
+    }
 }
