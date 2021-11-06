@@ -1,7 +1,9 @@
 package com.fallon.sneakerapp.servlets;
 
+import com.fallon.sneakerapp.controllers.UserController;
 import com.fallon.sneakerapp.daos.UserDao;
 import com.fallon.sneakerapp.dtos.RegisterDTO;
+import com.fallon.sneakerapp.exceptions.UserNameTakenException;
 import com.fallon.sneakerapp.pojos.User;
 import com.fallon.sneakerapp.services.UserServices;
 import com.fallon.sneakerapp.util.ConnectionFactory;
@@ -19,40 +21,35 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-
-@WebServlet
-public class DispatcheServlet extends HttpServlet {
+@WebServlet("/*")
+public class DispatcherServlet extends HttpServlet {
 
     private Connection connection;
     private ObjectMapper objectMapper;
-
+    private UserController userController;
     private User user;
 
     @Override
     public void init() {
-            connection = ConnectionFactory.getInstance().getConnection();
+        connection = ConnectionFactory.getInstance().getConnection();
+        userController = new UserController(new UserServices(new UserDao(connection)));
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String target = parseURI(request);
         objectMapper = new ObjectMapper();
-
-        try{
+        try {
             switch (target) {
                 case "register":
-                    Connection connection = ConnectionFactory.getInstance().getConnection();
-                    RegisterDTO registerDTO = objectMapper.readValue(request.getInputStream(), RegisterDTO.class);
-                    response.getWriter().println(registerDTO);
-
-                    userServices = new UserServices(new UserDao(connection));
-                    userServices.registerUser(new User(registerDTO));
-
-                //case "login"
-
-
-
+                    userController.registerUser(request);
+                    response.setStatus(201);
+                    break;
             }
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (UserNameTakenException e) {
+            response.setStatus(403);
         }
     }
 
@@ -74,14 +71,15 @@ public class DispatcheServlet extends HttpServlet {
     private String parseURI(HttpServletRequest request) {
         String string = request.getRequestURI();
         String[] parsedStrings = string.split("/");
-        return parsedStrings[parsedStrings.length-1];
+        return parsedStrings[parsedStrings.length - 1];
     }
 
     @Override
     public void destroy() {
         try {
             connection.close();
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+        }
     }
 
 
