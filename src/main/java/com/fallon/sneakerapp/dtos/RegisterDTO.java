@@ -4,6 +4,10 @@ public class RegisterDTO {
     String username;
     String password;
 
+    public RegisterDTO(){
+        super();
+    }
+
     public String getUsername() {
         return username;
     }

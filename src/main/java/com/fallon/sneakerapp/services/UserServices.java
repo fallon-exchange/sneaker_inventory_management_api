@@ -1,6 +1,7 @@
 package com.fallon.sneakerapp.services;
 
 import com.fallon.sneakerapp.daos.UserDao;
+import com.fallon.sneakerapp.exceptions.UserNameTakenException;
 import com.fallon.sneakerapp.pojos.User;
 
 import java.sql.Connection;
@@ -13,9 +14,9 @@ public class UserServices {
         this.userDao = userDao;
     }
 
-    public User registerUser(User newUser) throws Exception {
+    public User registerUser(User newUser) throws UserNameTakenException, SQLException {
         if(userDao.selectUsername(newUser)){
-            throw new Exception("Username taken");
+            throw new UserNameTakenException();
         }
 
         User registeredUser = userDao.save(newUser);
