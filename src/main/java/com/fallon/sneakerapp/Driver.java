@@ -1,13 +1,16 @@
 package com.fallon.sneakerapp;
 
+import com.fallon.sneakerapp.daos.SneakerDao;
 import com.fallon.sneakerapp.daos.UserDao;
 import com.fallon.sneakerapp.dtos.RegisterDTO;
+import com.fallon.sneakerapp.pojos.Sneaker;
 import com.fallon.sneakerapp.pojos.User;
 import com.fallon.sneakerapp.services.UserServices;
 import com.fallon.sneakerapp.util.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Driver {
     /**
@@ -17,14 +20,12 @@ public class Driver {
     public static void main(String[] args) {
 
         try(Connection conn = ConnectionFactory.getInstance ().getConnection()){
-            UserServices userServices = new UserServices(new UserDao(conn));
-            RegisterDTO registerDTO = new RegisterDTO();
-            registerDTO.setUsername("JaneSmith");
-            registerDTO.setPassword("password");
-            System.out.println(userServices.registerUser(new User(registerDTO)));
+            SneakerDao sneakerDao = new SneakerDao(conn);
+            Sneaker sneaker = new Sneaker("GZ554", 10, 1, true, LocalDate.of(2021, 10,7), 60);
+            System.out.println(sneakerDao.save(sneaker));;
+
         }catch (Exception throwables){
             throwables.printStackTrace();
         }
-
     }
 }
