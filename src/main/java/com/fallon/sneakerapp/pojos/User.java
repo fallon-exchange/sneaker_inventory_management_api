@@ -17,12 +17,12 @@ public class User {
         this.password = registerDTO.getPassword();
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public String getUsername() {
