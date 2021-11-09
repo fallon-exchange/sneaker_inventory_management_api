@@ -20,9 +20,10 @@ public class Driver {
     public static void main(String[] args) {
 
         try(Connection conn = ConnectionFactory.getInstance ().getConnection()){
-            SneakerDao sneakerDao = new SneakerDao(conn);
+            User user = new User("sfallon", "pa$$w0rd");
+            UserDao userDao = new UserDao(conn);
             Sneaker sneaker = new Sneaker("GZ554", 10, 1, true, LocalDate.of(2021, 10,7), 60);
-            System.out.println(sneakerDao.save(sneaker));;
+            System.out.println(userDao.login(user));
 
         }catch (Exception throwables){
             throwables.printStackTrace();

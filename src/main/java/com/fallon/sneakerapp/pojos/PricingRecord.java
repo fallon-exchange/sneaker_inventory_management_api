@@ -10,9 +10,19 @@ public class PricingRecord {
     private double goatLowestPrice;
     private double goatHighestPrice;
     private double stockXLowestPrice;
+    private double stockXHighestPrice;
     private double flightClubLowestPrice;
     private double stadiumGoodsLowestPrice;
     private double retailPrice;
+    private double goatInstaShipPrice;
+
+    public double getStockXHighestPrice() {
+        return stockXHighestPrice;
+    }
+
+    public void setStockXHighestPrice(double stockXHighestPrice) {
+        this.stockXHighestPrice = stockXHighestPrice;
+    }
 
     public int getPricingRecordId() {
         return pricingRecordId;
@@ -84,5 +94,13 @@ public class PricingRecord {
 
     public void setRetailPrice(double retailPrice) {
         this.retailPrice = retailPrice;
+    }
+
+    public double getGoatInstaShipPrice() {
+        return goatInstaShipPrice;
+    }
+
+    public void setGoatInstaShipPrice(double goatInstaShipPrice) {
+        this.goatInstaShipPrice = goatInstaShipPrice;
     }
 }
