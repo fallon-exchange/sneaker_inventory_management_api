@@ -1,7 +1,9 @@
 package com.fallon.sneakerapp;
 
+import com.fallon.sneakerapp.daos.StyleDao;
 import com.fallon.sneakerapp.daos.UserDao;
 import com.fallon.sneakerapp.dtos.RegisterDTO;
+import com.fallon.sneakerapp.pojos.Style;
 import com.fallon.sneakerapp.pojos.User;
 import com.fallon.sneakerapp.services.UserServices;
 import com.fallon.sneakerapp.util.ConnectionFactory;
@@ -17,11 +19,9 @@ public class Driver {
     public static void main(String[] args) {
 
         try(Connection conn = ConnectionFactory.getInstance ().getConnection()){
-            UserServices userServices = new UserServices(new UserDao(conn));
-            RegisterDTO registerDTO = new RegisterDTO();
-            registerDTO.setUsername("JaneSmith");
-            registerDTO.setPassword("password");
-            System.out.println(userServices.registerUser(new User(registerDTO)));
+            Style style = new Style("testStyle5", "test", "test", "test");
+            StyleDao styleDao = new StyleDao(conn);
+            styleDao.save(style);
         }catch (Exception throwables){
             throwables.printStackTrace();
         }
