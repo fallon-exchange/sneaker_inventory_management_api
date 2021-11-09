@@ -45,4 +45,19 @@ public class UserDao {
 
         return false;
     }
+
+    public User login(User user) throws SQLException {
+        String sqlSelectUser = "select * from users where username = ? and password = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sqlSelectUser);
+        pstmt.setString(1,user.getUsername());
+        pstmt.setString(2,user.getPassword());
+
+        ResultSet resultSet = pstmt.executeQuery();
+
+        while(resultSet.next()){
+            user.setUserId(resultSet.getInt("user_id"));
+        }
+        return user;
+    }
+
 }

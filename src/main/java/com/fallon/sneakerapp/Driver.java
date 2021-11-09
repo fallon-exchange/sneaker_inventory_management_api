@@ -1,6 +1,5 @@
 package com.fallon.sneakerapp;
 
-
 import com.fallon.sneakerapp.daos.StyleDao;
 import com.fallon.sneakerapp.daos.UserDao;
 import com.fallon.sneakerapp.dtos.RegisterDTO;
