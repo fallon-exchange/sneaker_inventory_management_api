@@ -6,6 +6,18 @@ public class Style {
     String type;
     String subType;
 
+    public Style(String styleId, String styleName, String type, String subType) {
+        this.styleId = styleId;
+        this.styleName = styleName;
+        this.type = type;
+        this.subType = subType;
+    }
+
+    public Style() {
+    }
+
+
+
     public String getStyleId() {
         return styleId;
     }

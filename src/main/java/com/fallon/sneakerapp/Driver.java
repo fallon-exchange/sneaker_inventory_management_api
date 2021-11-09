@@ -1,9 +1,11 @@
 package com.fallon.sneakerapp;
 
-import com.fallon.sneakerapp.daos.SneakerDao;
+
+import com.fallon.sneakerapp.daos.StyleDao;
 import com.fallon.sneakerapp.daos.UserDao;
 import com.fallon.sneakerapp.dtos.RegisterDTO;
-import com.fallon.sneakerapp.pojos.Sneaker;
+import com.fallon.sneakerapp.pojos.Style;
+
 import com.fallon.sneakerapp.pojos.User;
 import com.fallon.sneakerapp.services.UserServices;
 import com.fallon.sneakerapp.util.ConnectionFactory;
@@ -20,9 +22,10 @@ public class Driver {
     public static void main(String[] args) {
 
         try(Connection conn = ConnectionFactory.getInstance ().getConnection()){
-            SneakerDao sneakerDao = new SneakerDao(conn);
-            Sneaker sneaker = new Sneaker("GZ554", 10, 1, true, LocalDate.of(2021, 10,7), 60);
-            System.out.println(sneakerDao.save(sneaker));;
+
+            Style style = new Style("testStyle5", "test", "test", "test");
+            StyleDao styleDao = new StyleDao(conn);
+            styleDao.save(style);
 
         }catch (Exception throwables){
             throwables.printStackTrace();
