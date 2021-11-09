@@ -11,6 +11,16 @@ public class Sneaker {
     LocalDate dateBought;
     double priceBought;
 
+    public Sneaker(String styleId, double size, int userId, boolean isSold, LocalDate dateBought, double priceBought) {
+
+        this.styleId = styleId;
+        this.size = size;
+        this.userId = userId;
+        this.isSold = isSold;
+        this.dateBought = dateBought;
+        this.priceBought = priceBought;
+    }
+
     public int getSneakerId() {
         return sneakerId;
     }
@@ -65,5 +75,18 @@ public class Sneaker {
 
     public void setPriceBought(double priceBought) {
         this.priceBought = priceBought;
+    }
+
+    @Override
+    public String toString() {
+        return "Sneaker{" +
+                "sneakerId=" + sneakerId +
+                ", styleId='" + styleId + '\'' +
+                ", size=" + size +
+                ", userId=" + userId +
+                ", isSold=" + isSold +
+                ", dateBought=" + dateBought +
+                ", priceBought=" + priceBought +
+                '}';
     }
 }
