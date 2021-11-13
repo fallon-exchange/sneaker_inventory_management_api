@@ -23,4 +23,7 @@ public class  UserController {
         userServices.registerUser(new User(registerDTO));
     }
 
+    //TODO
+    //Map data request data to a User object
+
 }

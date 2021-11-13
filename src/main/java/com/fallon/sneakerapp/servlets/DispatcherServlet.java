@@ -45,6 +45,9 @@ public class DispatcherServlet extends HttpServlet {
                     userController.registerUser(request);
                     response.setStatus(201);
                     break;
+
+                    //TODO
+                //login
             }
         }catch (SQLException throwables) {
             throwables.printStackTrace();

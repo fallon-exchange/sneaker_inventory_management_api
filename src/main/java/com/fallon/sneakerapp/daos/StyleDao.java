@@ -15,7 +15,7 @@ public class StyleDao {
     }
 
 
-    public boolean isStyleSaved(Style style) throws SQLException {
+    public boolean styleExists(Style style) throws SQLException {
         String sqlSelectStyle = "select * from styles where style_id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlSelectStyle);
         preparedStatement.setString(1, style.getStyleId());

@@ -20,8 +20,8 @@ public class SneakerServices {
         this.pricingRecordDao = pricingRecordDao;
     }
 
-    public void save(int userId, Sneaker sneaker, Style style, PricingRecord pricingRecord) throws SQLException {
-        if(!styleDao.isStyleSaved(style)){
+    public void save(Sneaker sneaker, Style style, PricingRecord pricingRecord) throws SQLException {
+        if(!styleDao.styleExists(style)){
             styleDao.save(style);
         }
 
@@ -30,6 +30,11 @@ public class SneakerServices {
         pricingRecordDao.save(pricingRecord);
 
 
+    }
+
+    public void addListing(){
+        //TODO
+        //Service Logic for adding a listing
     }
 
 }
