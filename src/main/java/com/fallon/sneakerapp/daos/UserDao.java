@@ -32,7 +32,7 @@ public class UserDao {
         return newUser;
     }
 
-    public boolean selectUsername(User user) throws SQLException {
+    public boolean userExists(User user) throws SQLException {
         String sqlSelectUser = "select * from users where username = ?";
         PreparedStatement pstmt = connection.prepareStatement(sqlSelectUser);
         pstmt.setString(1,user.getUsername());
@@ -46,7 +46,7 @@ public class UserDao {
         return false;
     }
 
-    public User login(User user) throws SQLException {
+    public User getUserByUsernameAndPassword(User user) throws SQLException {
         String sqlSelectUser = "select * from users where username = ? and password = ?";
         PreparedStatement pstmt = connection.prepareStatement(sqlSelectUser);
         pstmt.setString(1,user.getUsername());
