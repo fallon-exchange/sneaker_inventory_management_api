@@ -1,6 +1,8 @@
 package com.fallon.sneakerapp.services;
 
 import com.fallon.sneakerapp.daos.UserDao;
+import com.fallon.sneakerapp.exceptions.InvalidCredentialsException;
+import com.fallon.sneakerapp.exceptions.InvalidUserException;
 import com.fallon.sneakerapp.exceptions.UserNameTakenException;
 import com.fallon.sneakerapp.pojos.User;
 import org.junit.After;
@@ -48,5 +50,37 @@ public class Test_UserServices {
         verify(mockUserDao, times(1)).save(any());
     }
 
+    @Test
+    public void test_loginValidUser() throws SQLException, InvalidCredentialsException, InvalidUserException {
+        //testing variables
+        User testUser = new User(1, "testUser", "testPassword");
 
+        //setting values of testing variable
+        when(mockUserDao.userExists(any())).thenReturn(Boolean.TRUE);
+        when(mockUserDao.getUserByUsernameAndPassword(any())).thenReturn(testUser);
+
+        //calls login method and
+        User actualResult = sut.login(null);
+
+        assertEquals(testUser, actualResult);
+    }
+
+    @Test (expected = InvalidUserException.class)
+    public void test_userDoesntExist() throws SQLException, InvalidCredentialsException, InvalidUserException {
+        User testUser = new User("testUser", "testUser");
+
+        when(mockUserDao.userExists(any())).thenReturn(Boolean.FALSE);
+
+        sut.login(testUser);
+    }
+
+    @Test (expected = InvalidCredentialsException.class)
+    public  void test_invalidPassword() throws SQLException, InvalidCredentialsException, InvalidUserException {
+        User testUser = new User("testUser", "testUser");
+
+        when(mockUserDao.userExists(any())).thenReturn(Boolean.TRUE);
+        when(mockUserDao.getUserByUsernameAndPassword(any())).thenReturn(null);
+
+        sut.login(testUser);
+    }
 }

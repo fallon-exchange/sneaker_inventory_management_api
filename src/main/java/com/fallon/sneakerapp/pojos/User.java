@@ -1,5 +1,6 @@
 package com.fallon.sneakerapp.pojos;
 
+import com.fallon.sneakerapp.dtos.LoginDTO;
 import com.fallon.sneakerapp.dtos.RegisterDTO;
 
 public class User {
@@ -25,6 +26,11 @@ public class User {
     public User(RegisterDTO registerDTO) {
         this.username = registerDTO.getUsername();
         this.password = registerDTO.getPassword();
+    }
+
+    public User(LoginDTO loginDTO) {
+        this.username = loginDTO.getUsername();
+        this.password = loginDTO.getPassword();
     }
 
     public void setUserId(int userId) {

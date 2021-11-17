@@ -3,6 +3,8 @@ package com.fallon.sneakerapp.servlets;
 import com.fallon.sneakerapp.controllers.UserController;
 import com.fallon.sneakerapp.daos.UserDao;
 import com.fallon.sneakerapp.dtos.RegisterDTO;
+import com.fallon.sneakerapp.exceptions.InvalidCredentialsException;
+import com.fallon.sneakerapp.exceptions.InvalidUserException;
 import com.fallon.sneakerapp.exceptions.UserNameTakenException;
 import com.fallon.sneakerapp.pojos.User;
 import com.fallon.sneakerapp.services.UserServices;
@@ -46,14 +48,24 @@ public class DispatcherServlet extends HttpServlet {
                     response.setStatus(201);
                     break;
 
-                    //TODO
+                //TODO
                 //login
+                case "login":
+                    response.getWriter().println(userController.loginUser(request));
+                    response.setStatus(202);
+                    break;
             }
         }catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (UserNameTakenException e) {
+        }catch (UserNameTakenException e) {
             response.setStatus(403);
+        }catch (InvalidCredentialsException e) {
+            response.setStatus(401);
+        }catch (InvalidUserException e) {
+            response.setStatus(401);
         }
+
+
     }
 
     @Override
