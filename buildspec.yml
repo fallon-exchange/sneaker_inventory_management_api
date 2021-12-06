@@ -1,0 +1,32 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - # S3 URI
+      - aws s3 cp s3://saf23bucket/sneaker_inventory_management_api-1.0-SNAPSHOT.war /root/ec2-user/sneaker_inventory_management_api-1.0-SNAPSHOT.war
+      - mvn install:install-file -Dfile=/root/ec2-user/sneaker_inventory_management_api-1.0-SNAPSHOT.war -DgroupId=org.example -DartifactId=sneaker_inventory_management_api -Dversion=1.0-SNAPSHOT -Dpackaging=war
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn package
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      #- mkdir artifact
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      - ls -al
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      - ls -al target/
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      - unzip target/sneaker_inventory_management_api-1.0-SNAPSHOT.war -d ./
+      - ls -al
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      #- mv artifact/WEB-INF WEB-INF
+#artifacts:
+  #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
+#  files:
+#    - WEB-INF/**/*
+#  name: artifact
