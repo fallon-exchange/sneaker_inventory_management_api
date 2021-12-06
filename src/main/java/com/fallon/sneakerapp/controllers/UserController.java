@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class  UserController {
-
     private UserServices userServices;
     public UserController(UserServices userServices) {
         this.userServices = userServices;
