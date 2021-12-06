@@ -5,28 +5,18 @@ phases:
       java: corretto8
   pre_build:
     commands:
-      - # S3 URI
-      - aws s3 cp s3://saf23bucket/sneaker_inventory_management_api-1.0-SNAPSHOT.war /root/ec2-user/sneaker_inventory_management_api-1.0-SNAPSHOT.war
-      - mvn install:install-file -Dfile=/root/ec2-user/sneaker_inventory_management_api-1.0-SNAPSHOT.war -DgroupId=org.example -DartifactId=sneaker_inventory_management_api -Dversion=1.0-SNAPSHOT -Dpackaging=war
+      - echo "Entered the pre_build phase"
+
   build:
     commands:
-      - echo Build started on `date`
-      - mvn package
+      - echo "Entered build phase"
+      - mvn clean prepare-package war:exploded
   post_build:
     commands:
-      - echo Build completed on `date`
-      #- mkdir artifact
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      - ls -al
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      - ls -al target/
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      - unzip target/sneaker_inventory_management_api-1.0-SNAPSHOT.war -d ./
-      - ls -al
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      #- mv artifact/WEB-INF WEB-INF
-#artifacts:
+      - echo "Entered post_build phase"
+      - mv target/deploy ./
+  artifacts:
   #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
-#  files:
-#    - WEB-INF/**/*
-#  name: artifact
+  files:
+   - deploy/**/*
+
