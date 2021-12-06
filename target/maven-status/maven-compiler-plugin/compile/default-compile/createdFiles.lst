@@ -1,8 +1,0 @@
-com\fallon\sneakerapp\services\UserServices.class
-com\fallon\sneakerapp\dtos\RegisterDTO.class
-com\fallon\sneakerapp\Driver.class
-com\fallon\sneakerapp\pojos\User.class
-com\fallon\sneakerapp\servlets\TestServlet.class
-com\fallon\sneakerapp\util\ConnectionFactory.class
-com\fallon\sneakerapp\daos\UserDao.class
-com\fallon\sneakerapp\servlets\UserServlet.class
