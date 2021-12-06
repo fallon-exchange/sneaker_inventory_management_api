@@ -15,8 +15,8 @@ phases:
     commands:
       - echo "Entered post_build phase"
       - mv target/deploy ./
-  artifacts:
+artifacts:
   #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
-    files:
-      - deploy/**/*
+  files:
+    - deploy/**/*
 
