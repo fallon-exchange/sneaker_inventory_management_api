@@ -6,10 +6,9 @@ phases:
       java: corretto8
   post_build:
     commands:
-      - mvn clean package
-      - mv target/sneaker_inventory_management_api-1.0-SNAPSHOT.war sneaker_inventory_management_api-1.0-SNAPSHOT.war
+      - mvn package
+      - mv target/ROOT.war ROOT.war
 artifacts:
   files:
-    - sneaker_inventory_management_api-1.0-SNAPSHOT.war
+    - ROOT.war
     - .ebextensions/**/*
-
