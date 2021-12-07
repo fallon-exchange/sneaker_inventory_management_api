@@ -10,5 +10,5 @@ phases:
       - mv target/sneaker_inventory_management_api-1.0-SNAPSHOT.war sneaker_inventory_management_api-1.0-SNAPSHOT.war
 artifacts:
   files:
-    - ROOT.war
+    - sneaker_inventory_management_api-1.0-SNAPSHOT.war
     - .ebextensions/**/*
