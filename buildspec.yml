@@ -4,11 +4,30 @@ phases:
   install:
     runtime-versions:
       java: corretto8
+  pre_build:
+    commands:
+      # - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.jar ~/.m2/repository/eteam/eorm/1.0/eorm-1.0.jar
+      - aws s3 cp s3://saf23-project-bucket/sneaker_inventory_management_api-1.0-SNAPSHOT.war /root/ec2-user/sneaker_inventory_management_api-1.0-SNAPSHOT.war
+      - mvn install:install-file -Dfile=/root/ec2-user/sneaker_inventory_management_api-1.0-SNAPSHOT.war -DgroupId=org.example -DartifactId=sneaker_inventory_management_api -Dversion=1.0 -Dpackaging=war
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn package
   post_build:
     commands:
-      - mvn package
-      - mv target/sneaker_inventory_management_api-1.0-SNAPSHOT.war sneaker_inventory_management_api-1.0-SNAPSHOT.war
+      - echo Build completed on `date`
+      - mkdir artifact
+      - unzip target/sneaker_inventory_management_api-1.0-SNAPSHOT.war -d artifact/
+      - mv artifact/WEB-INF WEB-INF
 artifacts:
+  #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
   files:
-    - sneaker_inventory_management_api-1.0-SNAPSHOT.war
-    - .ebextensions/**/*
+    - WEB-INF/**/*
+  name: artifact
+#    - p1-webapp-0.9.war
+#    - .ebextensions/**/*
+#eb_codebuild_settings:
+#  CodeBuildServiceRole: arn:aws:iam::727691927255:role/service-role/codebuild-webapp-using-s3-orm-package-service-role
+#  ComputeType: BUILD_GENERAL1_SMALL
+#  Image: aws/codebuild/standard:4.0
+#  Timeout: 60
